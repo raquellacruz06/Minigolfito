@@ -200,3 +200,17 @@ paloMasUtil jugador obstaculos = maximoSegun (cuantosPuedeSuperar obstaculos . g
 --todosLostiros :: Jugador -> [Tiro] -- Esto no me serviría porque necesito devolver un Palo
 --todosLostiros jugador = map (golpe jugador) palos
 --Palos es la constante que definimos más arriba
+
+--Punto 5 Dada una lista de tipo [(Jugador, Puntos)] que tiene la información de cuántos puntos ganó cada niño al finalizar 
+--el torneo, se pide retornar la lista de padres que pierden la apuesta por ser el “padre del niño que no ganó”. 
+--Se dice que un niño ganó el torneo si tiene más puntos que los otros niños.
+
+padresPerdedores :: [(Jugador, Int)] -> [String]
+padresPerdedores  = map (padre.fst) . perdedores 
+
+perdedores :: [(Jugador, Int)] -> [(Jugador, Int)]
+perdedores listaJugadores = filter (/= (mejorJugador listaJugadores)) listaJugadores
+
+mejorJugador :: [(Jugador, Int)] -> (Jugador, Int)
+mejorJugador listaJugadores = maximoSegun snd listaJugadores
+
