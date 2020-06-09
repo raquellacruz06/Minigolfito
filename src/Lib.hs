@@ -30,10 +30,10 @@ type Puntos = Int
 -- Funciones útiles
 between n m x = elem x [n .. m]
 
-maximoSegun f = foldl1 (mayorSegun f)
+{-maximoSegun f = foldl1 (mayorSegun f)
 mayorSegun f a b
   | f a > f b = a
-  | otherwise = b
+  | otherwise = b-}
 
 {-1a)Modelar los palos usados en el juego que a partir de una determinada habilidad 
 generan un tiro que se compone por velocidad, precisión y altura.
@@ -65,9 +65,9 @@ todosLosHierros = map losHierros valores
 palos :: [Palo]
 palos = [elPutter, laMadera]++ todosLosHierros
 
-
 --2) Definir la función golpe que dados una persona y un palo, 
-obtiene el tiro resultante de usar ese palo con las habilidades de la persona
+--obtiene el tiro resultante de usar ese palo con las habilidades de la persona
+
 golpe :: Jugador -> Palo -> Tiro
 golpe jugador palo = (palo.habilidad) jugador
 
@@ -178,7 +178,7 @@ cuantosPuedeSuperar (obstaculo1:obstaculos) tiro  --- recibo lista de obstaculos
   | otherwise = 0
 --cuantosPuedeSuperar obstaculos hace la recursividad con el efecto que deja el obstaculo1 sobre el tiroDetenido
 
---Definir paloMasUtil que recibe una persona y una lista de obstáculos
+--4c) Definir paloMasUtil que recibe una persona y una lista de obstáculos
 --y determina cuál es el palo que le permite superar más obstáculos con un solo tiro.
 
 -- foldl1 :: (a-> a -> a ) -> [a] -> a 
@@ -189,6 +189,14 @@ cuantosPuedeSuperar (obstaculo1:obstaculos) tiro  --- recibo lista de obstaculos
 mayorSegun f a b
   | f a > f b = a
   | otherwise = b-}
+maximoSegun f = foldl1 (mayorSegun f)
+mayorSegun f a b
+  | f a > f b = a
+  | otherwise = b
 
+paloMasUtil :: Jugador -> [Obstaculo]-> Palo
+paloMasUtil jugador obstaculos = maximoSegun (cuantosPuedeSuperar obstaculos . golpe jugador) palos 
 
-
+--todosLostiros :: Jugador -> [Tiro] -- Esto no me serviría porque necesito devolver un Palo
+--todosLostiros jugador = map (golpe jugador) palos
+--Palos es la constante que definimos más arriba
