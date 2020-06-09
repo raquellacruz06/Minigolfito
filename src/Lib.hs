@@ -128,7 +128,7 @@ palosUtiles jugador obstaculo = filter (sirvePalo jugador obstaculo) palos
 {-Saber, a partir de un conjunto de obstáculos y un tiro, cuántos obstáculos consecutivos se pueden superar.-}
 
 --cuantosPuedeSuperar :: [Obstaculo]-> Tiro -> Int
---cuantosPuedeSuperar obstaculos tiro = 
+--cuantosPuedeSuperar obstaculos tiro = (length.takeWhile.foldl ((==True).superaObstaculo) tiro) obstaculos
 
 
 
